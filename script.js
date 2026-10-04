@@ -3,6 +3,7 @@
    ============================================================ */
 const notes = [];
 const MAX_LENGTH = 200;
+const STORAGE_KEY = "quicknotes-notes";
 
 
 /* ============================================================
@@ -15,6 +16,30 @@ const errorMessage  = document.getElementById("error-message");
 const notesList     = document.getElementById("notes-list");
 const notesCount    = document.getElementById("notes-count");
 const searchInput   = document.getElementById("search-input");
+
+/* ============================================================
+     STORAGE
+     ============================================================ */
+function saveNotes() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+    } catch (err) {
+      // Storage might be full or disabled — fail silently
+      console.warn("Could not save notes:", err);
+    }
+}
+
+function loadNotes() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return [];
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (err) {
+      console.warn("Could not load notes:", err);
+      return [];
+    }
+}
 
 /* ============================================================
    HELPERS
@@ -54,6 +79,18 @@ function categoryClass(category) {
       notesCount.textContent = `You have ${total} notes.`;
     }
   }
+/**
+ * Returns the subset of notes whose text contains every word
+ * 
+ */
+  function filterNotes(query) {
+    const words = query.toLowerCase().split(/\s+/).filter(Boolean);
+    if (words.length === 0) return notes; // no query, return all notes 
+    return notes.filter((note) => {
+      const text = note.text.toLowerCase();
+      return words.every((word) => text.includes(word));
+    });
+}
 
 /* ============================================================
    RENDER
@@ -99,7 +136,6 @@ function renderNotes() {
     dateLabel.textContent = note.createdAt;
 
     meta.append(categoryLabel, dateLabel);
-    content.append(text, meta);
 
     // --- Delete button ---
     const deleteBtn = document.createElement("button");
@@ -131,6 +167,7 @@ function addNote(text, category) {
   };
 
   notes.push(note);
+  saveNotes();
   renderNotes();
 }
 
@@ -141,6 +178,7 @@ function deleteNote(id) {
   const index = notes.findIndex((note) => note.id === id);
   if (index !== -1) {
     notes.splice(index, 1);
+    saveNotes();
     renderNotes();
   }
 }
@@ -185,6 +223,20 @@ form.addEventListener("submit", (event) => {
   categorySelect.value = "Personal";
   noteInput.focus();
 });
+
+  /* ============================================================
+     LIVE SEARCH
+     ============================================================ */
+  searchInput.addEventListener("input", renderNotes);
+
+  /* ============================================================
+     CLEAR ERROR WHILE TYPING
+     ============================================================ */
+  noteInput.addEventListener("input", () => {
+    if (errorMessage.textContent) {
+      errorMessage.textContent = "";
+    }
+  });
 
 /* ============================================================
    INITIAL RENDER
