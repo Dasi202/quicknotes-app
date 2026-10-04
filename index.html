@@ -24,13 +24,15 @@
                     <div class="form-group">
                         <label for="category-select">Category:</label>
                         <select id="category-select" name="category">
-                            <option value="personal">Personal</option>
-                            <option value="work">Work</option>
-                            <option value="study">Study</option>
-                            <option value="other">Other</option>
+                            <option class="category-personal" value="personal">Personal</option>
+                            <option class="category-work" value="work">Work</option>
+                            <option class="category-study" value="study">Study</option>
+                            <option class="category-other" value="other">Other</option>
                         </select>
                     </div>
-                    <button type="submit" id="add-note-btn">Add Note</button>
+                    <div class="actions">
+                        <button type="submit" id="add-note-btn">Add Note</button>
+                    </div>
                 </form>
                 <!--Empty paragraph error message-->
                 <p id="error-message" class="error" role="alert"></p>
