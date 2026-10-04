@@ -1,0 +1,48 @@
+<!Doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>QuickNotes</title>
+    </head>
+    <body>
+        <header>
+            <h1>QuickNotes</h1>
+            <p>Every thought deserves a home</p>
+        </header>
+        <main>
+            <!-- section for adding a note -->
+            <section id="add-note-section">
+                <h2>Add a Note</h2>
+                <form id="note-form">
+                    <label for="note-input">Your Note:</label>
+                    <input type="text" id="note-input" name="note" placeholder="Type your thought here..." required>
+                    <label for="category-select" >Category:</label>
+                    <select id="category-select" name="category">
+                        <option value="personal">Personal</option>
+                        <option value="work">Work</option>
+                        <option value="study">Study</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <button type="submit" id="add-note-btn">Add Note</button>
+                </form>
+                <!--Empty paragraph error message-->
+                <p id="error-message" class="error" role="alert"></p>
+            </section>
+
+            <!-- section for displaying notes -->
+            <section id="notes-section">
+                <h2>Your Notes</h2>
+                <!-- Search box -->
+                <input type="text" id="search-input" placeholder="Search notes..." />
+                <!--Count paragraph-->
+                <p id="notes-count"> 0 Notes</p>
+                <!-- Notes list -->
+                <ul id="notes-list"></ul>
+            </section>
+        </main>
+        <!--footer-->
+        <footer>
+            <p>&copy; 2026 QuickNotes. All rights reserved.</p>
+        </footer>
+    </body>
