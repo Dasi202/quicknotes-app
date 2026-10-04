@@ -2,6 +2,8 @@
    STATE
    ============================================================ */
 const notes = [];
+const MAX_LENGTH = 200;
+
 
 /* ============================================================
    DOM REFERENCES
@@ -37,6 +39,21 @@ function formatDate(date) {
 function categoryClass(category) {
   return "category-" + category.toLowerCase();
 }
+/**
+   * Updates the #notes-count paragraph with a grammatically
+   * correct message.
+   */
+  function updateCount() {
+    const total = notes.length;
+
+    if (total === 0) {
+      notesCount.textContent = "You have no notes yet.";
+    } else if (total === 1) {
+      notesCount.textContent = "You have 1 note.";
+    } else {
+      notesCount.textContent = `You have ${total} notes.`;
+    }
+  }
 
 /* ============================================================
    RENDER
@@ -82,6 +99,7 @@ function renderNotes() {
     dateLabel.textContent = note.createdAt;
 
     meta.append(categoryLabel, dateLabel);
+    content.append(text, meta);
 
     // --- Delete button ---
     const deleteBtn = document.createElement("button");
@@ -136,6 +154,19 @@ form.addEventListener("submit", (event) => {
   const text = noteInput.value.trim();
   const category = categorySelect.value;
 
+  /* -- empty or whitespace-only--*/
+  if (text.length === 0) {
+    errorMessage.textContent = "Please enter a note before adding.";
+    noteInput.focus();
+    return;
+  } 
+
+  /* -- exceeds max length -- */
+  if (text.length > MAX_LENGTH) {
+    errorMessage.textContent = `Note cannot exceed ${MAX_LENGTH} characters.`;
+    noteInput.focus();
+    return;
+  }
   // Basic validation
   if (!text) {
     errorMessage.textContent = "Please enter a note before adding.";
