@@ -1,0 +1,252 @@
+/* ============================================================
+  
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  color: #1f2933;
+  background-color: #f4f6f8;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background: linear-gradient(135deg, #0f766e, #14b8a6);
+  color: #ffffff;
+  text-align: center;
+  padding: 2.5rem 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+header .tagline {
+  margin-top: 0.35rem;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* ============================================================
+   MAIN LAYOUT (centred column, max 700px)
+   ============================================================ */
+main {
+  flex: 1;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ============================================================
+   SECTION CARDS
+   ============================================================ */
+section {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+section h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0f766e;
+  margin-bottom: 1rem;
+}
+
+/* ============================================================
+   FORM (Flexbox)
+   ============================================================ */
+#note-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1 1 200px; /* input grows, select stays reasonable */
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #52606d;
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.65rem 0.85rem;
+  font-size: 1rem;
+  font-family: inherit;
+  color: #1f2933;
+  background-color: #ffffff;
+  border: 1px solid #cbd2d9;
+  border-radius: 8px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #14b8a6;
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.18);
+}
+
+/* Category colour coding */
+.category-personal {
+  border-left-color: #14b8a6; /* teal */
+}
+
+.category-work {
+  border-left-color: #991b1b; /* dark red */
+}
+
+.category-study {
+  border-left-color: #2563eb; /* blue */
+}
+
+.category-other {
+  border-left-color: #7b8794; /* gray */
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 0.4rem;
+}
+
+#add-note-btn {
+  flex: 0 0 auto;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: #ffffff;
+  background-color: #0f766e;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+#add-note-btn:hover {
+  background-color: #115e59;
+}
+
+#add-note-btn:active {
+  transform: scale(0.97);
+}
+
+/* ============================================================
+   ERROR MESSAGE
+   ============================================================ */
+.error {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #dc2626;
+  min-height: 1.2em; /* reserves space so layout doesn't jump */
+}
+
+/* ============================================================
+   SEARCH BOX & COUNT
+   ============================================================ */
+#search-input {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  font-size: 1rem;
+  font-family: inherit;
+  border: 1px solid #cbd2d9;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#search-input:focus {
+  outline: none;
+  border-color: #14b8a6;
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.18);
+}
+
+#notes-count {
+  font-size: 0.85rem;
+  color: #7b8794;
+  margin-bottom: 0.75rem;
+}
+
+/* ============================================================
+   NOTES LIST & CARDS
+   ============================================================ */
+#notes-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+#notes-list li {
+  background-color: #f8fafc;
+  border-left: 5px solid #cbd2d9;
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  font-size: 0.8rem;
+  color: #7b8794;
+}
+
+/* ============================================================
+   RESPONSIVE — stack form controls at ≤600px
+   ============================================================ */
+@media (max-width: 600px) {
+  #note-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-group,
+  #add-note-btn {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  header h1 {
+    font-size: 1.6rem;
+  }
+
+  main {
+    padding: 1.25rem 0.75rem;
+  }
+}
